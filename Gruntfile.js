@@ -12,7 +12,8 @@ module.exports = function(grunt) {
         assets: grunt.file.readJSON('server/config/assets.json'),
         watch: {
             js: {
-                files: ['*.js', 'server/**/*.js', 'public/js/**', 'test/**/*.js'],
+                //files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+                files: ['*.js', 'server/**/*.js', 'public/**', 'test/**/*.js'],
                 tasks: ['jshint'],
                 options: {
                     livereload: true

@@ -1,0 +1,28 @@
+<h1>Step1: Set your Goal</h1>
+
+<form ng-submit="addGoal($event)">
+  <legend>I want to </legend>
+  <label>action
+    <input ng-model="action" placeholder="Read..."/>
+  </label>
+
+  <label>number
+    <input ng-model="number" placeholder="10" />
+  </label>
+
+  <label>units
+    <input ng-model="unit" placeholder="book" />
+  </label>
+
+  <legend>by</legend>
+
+  <label>date
+    <input ng-model="date" placeholder="05-24-2014" />
+  </label>
+
+  <label>because
+    <textarea ng-model="because" placeholder="Expand my knowledge."></textarea>
+  </label>
+
+  <input type="submit"/>
+</form>

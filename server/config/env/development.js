@@ -3,7 +3,7 @@
 module.exports = {
     db: 'mongodb://localhost/mean-dev',
     app: {
-        name: 'MEAN - FullStack JS - Development'
+        name: 'Do Hi Do - Let\'s do this together'
     },
     facebook: {
         clientID: 'APP_ID',
@@ -11,8 +11,8 @@ module.exports = {
         callbackURL: 'http://localhost:3000/auth/facebook/callback'
     },
     twitter: {
-        clientID: 'CONSUMER_KEY',
-        clientSecret: 'CONSUMER_SECRET',
+        clientID: process.env.TWITTER_KEY,
+        clientSecret: process.env.TWITTER_SECRET,
         callbackURL: 'http://localhost:3000/auth/twitter/callback'
     },
     github: {

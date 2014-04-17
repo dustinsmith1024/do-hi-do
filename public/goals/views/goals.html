@@ -1,0 +1,14 @@
+<section>
+  <h1>Goals</h1>
+
+  <dl>
+    <dt ng-repeat-start="goal in goals">
+      <a ui-sref="goals.detail({id: goal._id})">{{goal.action}} {{goal.number}} {{goal.unit}}</a>
+    </dt>
+    <dd ng-repeat-end>{{goal.because}}</dd>
+  </dl>
+
+  <a ui-sref="goals.new" class="btn btn-primary">Setup new goal</a>
+</section>
+
+<section ng-if="loaded" ui-view></section>

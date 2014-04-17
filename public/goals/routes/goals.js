@@ -1,9 +1,10 @@
 'use strict';
 
-//Setting up route
-angular.module('mean.auth').config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
+angular.module('mean.goals').config(['$stateProvider', '$urlRouterProvider',
+  function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/goals");
 
+    
         //================================================
         // Check if the user is connected
         //================================================
@@ -58,22 +59,23 @@ angular.module('mean.auth').config(['$stateProvider', '$urlRouterProvider',
         //================================================
 
 
-        // states for my app
-        $stateProvider
-            .state('auth.login', {
-                url: '/login',
-                templateUrl: 'public/auth/views/login.html',
-                resolve: {
-                    loggedin: checkLoggedOut
-                }
-            })
-            /* Don't need this right now only doing Twitter auth
-            .state('auth.register', {
-                url: '/register',
-                templateUrl: 'public/auth/views/register.html',
-                resolve: {
-                    loggedin: checkLoggedOut
-                }
-            });*/
-    }
-])
+    $stateProvider
+      .state('goals', {
+        url: "/goals",
+        templateUrl: "public/goals/views/goals.html",
+        controller: 'GoalsCtrl'
+      })
+      .state('goals.new', {
+        url: "/new",
+        templateUrl: "public/goals/views/new_goal.html",
+        controller: 'NewGoalCtrl',
+        resolve: {
+          loggedin: checkLoggedin
+        }
+      })
+      .state('goals.detail', {
+        url: "/:id",
+        templateUrl: "public/goals/views/goal.html",
+        controller: 'GoalCtrl'
+      })
+  }]);

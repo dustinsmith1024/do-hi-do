@@ -7,6 +7,7 @@
 	},
 	"js": {
 		"public/build/js/dist.min.js": [
+			"public/system/lib/d3/d3.js",
 			"public/system/lib/angular/angular.js",
 			"public/system/lib/angular-cookies/angular-cookies.js",
 			"public/system/lib/angular-resource/angular-resource.js",

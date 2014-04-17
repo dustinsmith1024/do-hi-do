@@ -1,3 +1,10 @@
+#DoHiDo
+
+A MEAN Stack app for goal tracking with friends.
+
+# EVERYTHING BELOW IS DEFAULT MEAN STACK APP README
+
+
 # [![MEAN Logo](http://www.mean.io/img/logos/meanlogo.png)](http://mean.io/) MEAN Stack
 
 [![Build Status](https://travis-ci.org/linnovate/mean.png?branch=master)](https://travis-ci.org/linnovate/mean)

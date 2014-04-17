@@ -1,0 +1,36 @@
+<h2>{{goal.action}} {{goal.number}} {{goal.unit}}</h2>
+
+<p>Created: {{goal.created}}</p>
+<p>Finish by: {{goal.date}}</p>
+<p>Because: {{goal.because}}</p>
+
+<line-chart goal="goal" xmax="goal.date" ymax="goal.number" data="goal.progress"></line-chart>
+
+<h2>Progress</h2>
+
+<form ng-submit="addProgress()">
+  <legend>Add progress</legend>
+  <label>Date
+    <input ng-model="date"/>
+  </label>
+  <label>Number Accomplished
+    <input ng-model="number"/>
+  </label>
+  <input type="submit"/>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="log in goal.progress">
+      <td>{{log.date}}</td>
+      <td>{{log.number}}</td>
+      <td><button ng-click="removeProgress(log._id)">Remove</button>
+    </tr>
+  </tbody>
+</table>
