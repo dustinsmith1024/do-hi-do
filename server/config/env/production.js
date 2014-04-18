@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-    db: 'mongodb://localhost/mean-prod',
+    db: process.env.DB_URL,
     app: {
-        name: 'MEAN - A Modern Stack - Production'
+        name: 'Do Hi Do'
     },
     facebook: {
         clientID: 'APP_ID',
@@ -11,9 +11,9 @@ module.exports = {
         callbackURL: 'http://localhost:3000/auth/facebook/callback'
     },
     twitter: {
-        clientID: 'CONSUMER_KEY',
-        clientSecret: 'CONSUMER_SECRET',
-        callbackURL: 'http://localhost:3000/auth/twitter/callback'
+        clientID: process.env.TWITTER_KEY,
+        clientSecret: process.env.TWITTER_SECRET,
+        callbackURL: 'http://thawing-plateau-4631.herokuapp.com/auth/twitter/callback'
     },
     github: {
         clientID: 'APP_ID',
