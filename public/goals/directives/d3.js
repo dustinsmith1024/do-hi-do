@@ -1,4 +1,5 @@
 'use strict';
+var d3 = d3 || {};
 
 angular.module('mean.goals')
   .directive('lineChart', function(){
@@ -10,7 +11,7 @@ angular.module('mean.goals')
           height = 300 - margin.top - margin.bottom;
 
       //https://github.com/mbostock/d3/wiki/Time-Formatting#format_iso
-      var parseDate = d3.time.format.utc("%Y-%m-%dT%H:%M:%S.%LZ").parse;
+      var parseDate = d3.time.format.utc('%Y-%m-%dT%H:%M:%S.%LZ').parse;
 
       var x = d3.time.scale()
           .range([0, width]);
@@ -20,33 +21,26 @@ angular.module('mean.goals')
 
       var xAxis = d3.svg.axis()
           .scale(x)
-          .orient("bottom")
+          .orient('bottom')
           .ticks(d3.time.weeks) //better way?
-          .tickFormat(d3.time.format("%b %d"));
+          .tickFormat(d3.time.format('%b %d'));
 
       var yAxis = d3.svg.axis()
           .scale(y)
-          .orient("left")
+          .orient('left')
           .ticks(scope.goal.number)
           .tickSubdivide(0);
 
       var line = d3.svg.line()
           .x(function(d) { return x(d.date); })
           .y(function(d) { return y(d.close); });
-          //.interpolate('monotone');
-
-      var goalLine = d3.svg.line()
-          .x(function(d) { return x(d.date); })
-          .y(function(d) { return y(d.close); });
 
       var svg = d3.select(el[0]).append('svg')
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-
-      var total = 0;
       var goalData = [
         {date: parseDate(scope.goal.created), close: 0},
         {date: parseDate(scope.goal.date), close: scope.goal.number}
@@ -56,45 +50,45 @@ angular.module('mean.goals')
       x.domain([parseDate(scope.goal.created), parseDate(scope.xmax)]);
       y.domain([0, +scope.ymax]);
 
-      svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
+      svg.append('g')
+          .attr('class', 'x axis')
+          .attr('transform', 'translate(0,' + height + ')')
           .call(xAxis)
-          .selectAll("text")
-          .style("text-anchor", "end")
-              .attr("dx", "-.8em")
-              .attr("dy", ".15em")
-              .attr("transform", function(d) {
-                  return "rotate(-65)" 
-                  });;
+          .selectAll('text')
+          .style('text-anchor', 'end')
+              .attr('dx', '-.8em')
+              .attr('dy', '.15em')
+              .attr('transform', function(d) {
+                  return 'rotate(-65)' ;
+                  });
 
-      svg.append("g")
-          .attr("class", "y axis")
+      svg.append('g')
+          .attr('class', 'y axis')
           .call(yAxis)
-        .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-          .text("Goal");
+        .append('text')
+          .attr('transform', 'rotate(-90)')
+          .attr('y', 6)
+          .attr('dy', '.71em')
+          .style('text-anchor', 'end')
+          .text('Goal');
 
       
-      var progress = svg.append("g")
-        .attr("class", "progress");
+      var progress = svg.append('g')
+        .attr('class', 'progress');
 
-      svg.append("path")
+      svg.append('path')
           .datum(goalData)
-          .attr("class", "line goal")
-          .attr("d", line);
+          .attr('class', 'line goal')
+          .attr('d', line);
 
 
-      //var progressLine = svg.selectAll(".progress")
+      //var progressLine = svg.selectAll('.progress')
 
       scope.$watch('data', function(data){
         console.log('data changed!');
         
             // using the copy otherwise it actually changes the date for viewing
-        var data = angular.copy(scope.data);
+        data = angular.copy(scope.data);
 
         data.sort(function(a, b){
           if(a.date > b.date){ return 1; }
@@ -115,22 +109,22 @@ angular.module('mean.goals')
           and also help if items are removed from the middle of the list.
           Animations might be difficult to implement 
         */
-        progress.selectAll("path").remove();
-        progress.selectAll("circle").remove();
+        progress.selectAll('path').remove();
+        progress.selectAll('circle').remove();
 
-        var path = progress.append("path")
+        var path = progress.append('path')
           .datum(data)
-          .attr("class", "line progress")
-          .attr("d", line);
+          .attr('class', 'line progress')
+          .attr('d', line);
 
         var totalLength = path.node().getTotalLength();
 
-        path.attr("stroke-dasharray", totalLength + " " + totalLength)
-          .attr("stroke-dashoffset", totalLength)
+        path.attr('stroke-dasharray', totalLength + ' ' + totalLength)
+          .attr('stroke-dashoffset', totalLength)
           .transition()
             .duration(750)
-            .ease("linear")
-            .attr("stroke-dashoffset", 0);
+            .ease('linear')
+            .attr('stroke-dashoffset', 0);
 
         // Append the circles afterwards so they are on top of the line
         progress.selectAll('circle').data(data)
@@ -164,23 +158,13 @@ angular.module('mean.goals')
           width = 760 - margin.left - margin.right,
           height = 300 - margin.top - margin.bottom;
 
-      var parseDate = d3.time.format("%m-%e-%Y").parse;
+      var parseDate = d3.time.format('%m-%e-%Y').parse;
 
       var x = d3.time.scale()
           .range([0, width]);
 
       var y = d3.scale.linear()
           .range([height, 0]);
-
-      var xAxis = d3.svg.axis()
-          .scale(x)
-          .orient("bottom")
-          .ticks(d3.time.weeks) //better way?
-          .tickFormat(d3.time.format("%b %d"));
-
-      var yAxis = d3.svg.axis()
-          .scale(y)
-          .orient("left");
 
       var goalLine = d3.svg.line()
           .x(function(d) { return x(d.date); })
@@ -197,14 +181,10 @@ angular.module('mean.goals')
       x.domain([parseDate(scope.goal.created), parseDate(scope.xmax)]);
       y.domain([0, +scope.ymax]);
 
-      
-      var progress = svg.append("g")
-        .attr("class", "progress");
-
-      svg.append("path")
+      svg.append('path')
           .datum(goalData)
-          .attr("class", "line goal")
-          .attr("d", goalLine);
+          .attr('class', 'line goal')
+          .attr('d', goalLine);
 
     }
     return {
@@ -238,7 +218,7 @@ angular.module('mean.goals')
       .enter().append('path')
         .style('stroke', 'white')
         .attr('d', arc)
-        .attr('fill', function(d, i){ return color(i) });
+        .attr('fill', function(d, i){ return color(i); });
   }
   return {
     link: link,

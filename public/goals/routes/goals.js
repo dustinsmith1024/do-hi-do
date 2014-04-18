@@ -2,7 +2,7 @@
 
 angular.module('mean.goals').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/goals");
+    $urlRouterProvider.otherwise('/goals');
 
     
         //================================================
@@ -61,21 +61,21 @@ angular.module('mean.goals').config(['$stateProvider', '$urlRouterProvider',
 
     $stateProvider
       .state('goals', {
-        url: "/goals",
-        templateUrl: "public/goals/views/goals.html",
+        url: '/goals',
+        templateUrl: 'public/goals/views/goals.html',
         controller: 'GoalsCtrl'
       })
       .state('goals.new', {
-        url: "/new",
-        templateUrl: "public/goals/views/new_goal.html",
+        url: '/new',
+        templateUrl: 'public/goals/views/new_goal.html',
         controller: 'NewGoalCtrl',
         resolve: {
           loggedin: checkLoggedin
         }
       })
       .state('goals.detail', {
-        url: "/:id",
-        templateUrl: "public/goals/views/goal.html",
+        url: '/:id',
+        templateUrl: 'public/goals/views/goal.html',
         controller: 'GoalCtrl'
-      })
+      });
   }]);
