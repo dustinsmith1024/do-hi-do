@@ -1,9 +1,11 @@
 <h2>{{goal.action}} {{goal.number}} {{goal.unit}}</h2>
+<div>
+  <p>Created: {{goal.created}}</p>
+  <p>Finish by: {{goal.date}}</p>
+  <p>Because: {{goal.because}}</p>
 
-<p>Created: {{goal.created}}</p>
-<p>Finish by: {{goal.date}}</p>
-<p>Because: {{goal.because}}</p>
-
+  <button class="btn btn-danger" ng-click="removeGoal()">Remove Goal</button>
+</div>
 <line-chart goal="goal" xmax="goal.date" ymax="goal.number" data="goal.progress"></line-chart>
 
 <h2>Progress</h2>

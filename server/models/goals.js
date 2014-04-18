@@ -1,8 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var goalSchema = mongoose.Schema({
+var GoalSchema = mongoose.Schema({
   action: String,
   number: Number,
   unit: String,
@@ -10,14 +11,28 @@ var goalSchema = mongoose.Schema({
   created: Date,
   because: String,
 
-  progress: [{date: Date, number: Number}]
+  progress: [{date: Date, number: Number}],
+  
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
 
 });
 
-goalSchema.methods.done = function () {
+GoalSchema.methods.done = function () {
   var message = 'I want to ' + this.action +
     ' ' + this.number + ' ' + this.unit + '.';
   console.log(message);
 };
 
-exports.Goal = mongoose.model('Goal', goalSchema);
+/**
+ * Statics
+ */
+GoalSchema.statics.load = function(id, cb) {
+    this.findOne({
+        _id: id
+    }).populate('user', 'name username').exec(cb);
+};
+
+exports.Goal = mongoose.model('Goal', GoalSchema);

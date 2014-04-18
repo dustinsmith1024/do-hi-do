@@ -17,8 +17,10 @@ angular.module('mean.goals')
 
 angular.module('mean.goals')
   .controller('GoalCtrl', 
-     ['$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
+     ['$scope', '$stateParams', '$http', '$state', function($scope, $stateParams, $http, $state) {
     console.log('Looking up goal: ', $stateParams.id);
+
+    $scope.date = (new Date()).toISOString();
 
     angular.forEach($scope.goals, function(value, key){
        if(value._id===$stateParams.id){
@@ -29,6 +31,17 @@ angular.module('mean.goals')
         console.warn('COULD NOT FIND YOUR GOAL');
        }
     });
+
+    $scope.removeGoal = function(){
+      console.log('removing goal!');
+
+      $http.delete('/goals/' + $scope.goal._id)
+        .success(function(data){
+          console.log('removed!');
+          $scope.goals.splice( $scope.goals.indexOf($scope.goal), 1 );
+          $state.go('^');
+        });
+    };
 
     $scope.addProgress = function() {
       console.log('Added goal progress.');
@@ -68,6 +81,9 @@ angular.module('mean.goals')
   .controller('NewGoalCtrl', 
      ['$scope', '$http', function($scope, $http) {
     console.log('Setting up new goal');
+
+    var now = new Date();
+    $scope.date = (new Date(now.getFullYear(), now.getMonth() + 6, 1)).toISOString();
 
     $scope.addGoal = function() {
       console.log('Added a new goal!!');

@@ -1,9 +1,33 @@
 'use strict';
 
-var goals = require('../models/goals');
+var Goal = require('../models/goals').Goal;
+
+/**
+ * Find article by id
+ */
+exports.goal = function(req, res, next, id) {
+  Goal.load(id, function(err, goal) {
+      if (err) return next(err);
+      if (!goal) return next(new Error('Failed to load goal ' + id));
+      req.goal = goal;
+      next();
+  });
+};
+
+exports.destroy = function(req, res) {
+  var goal = req.goal;
+
+  goal.remove(function(err) {
+    if (err) {
+      console.log('error deleting goadl!!');
+    }else{
+      res.send(goal);
+    }
+  })
+};
 
 exports.findAll = function(req, res) {
-  goals.Goal.find(function (err, goals) {
+  Goal.find(function (err, goals) {
       if (err) return console.error(err);
       console.log(goals);
       res.send(goals);
@@ -12,17 +36,20 @@ exports.findAll = function(req, res) {
 
 exports.findById = function(req, res) {
   var query = {_id: req.params.id };
-  goals.Goal.findOne(query, function(err, doc){
+  Goal.findOne(query, function(err, doc){
     res.send(doc);
   });
 };
 
 exports.create = function(req, res) {
   console.log(req.params, req.body);
+  var goal = new Goal(req.body);
+  goal.user = req.user;
 
-  goals.Goal.create(req.body, function(err, doc) {
+  goal.save(function(err, doc) {
+    //TODO Throw an error
     if(err){console.log(err); return false;}
-    if(!doc){console.warn('coudnt find this doc'); return false;}
+    //if(!doc){console.warn('coudnt find this doc'); return false;}
     
     res.send(doc);
   });
@@ -35,7 +62,7 @@ exports.addProgress = function(req, res) {
   /*goals.Goal.findOneAndUpdate(query, { action: 'new!' }, {}, function(err, doc){
     res.send(doc);
   });*/
-  goals.Goal.findOne(query, function(err, doc) {
+  Goal.findOne(query, function(err, doc) {
     if(err){console.log(err); return false;}
     if(!doc){console.warn('coudnt find this doc'); return false;}
     doc.progress.push({date: req.body.date, number: req.body.number});
@@ -49,7 +76,7 @@ exports.removeProgress = function(req, res) {
   console.log(req.params, req.body);
   var query = {_id: req.params.id };
   
-  goals.Goal.findOne(query, function(err, doc) {
+  Goal.findOne(query, function(err, doc) {
     if(err){console.log(err); return false;}
     if(!doc){console.warn('coudnt find this doc'); return false;}
 
