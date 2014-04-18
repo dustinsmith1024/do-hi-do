@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    db: process.env.DB_URL,
+    db: process.env.MONGOHQ_URL,
     app: {
         name: 'Do Hi Do'
     },
