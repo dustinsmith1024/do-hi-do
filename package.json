@@ -56,9 +56,7 @@
     "grunt-contrib-watch": "latest",
     "grunt-env": "^0.4.1",
     "grunt-nodemon": "0.2.0",
-    "load-grunt-tasks": "^0.4.0"
-  },
-  "devDependencies": {
+    "load-grunt-tasks": "^0.4.0",
     "assetmanager": "^0.1.1",
     "grunt-karma": "^0.6.2",
     "grunt-mocha-test": "latest",
