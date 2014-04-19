@@ -3,7 +3,7 @@
 var Goal = require('../models/goals').Goal;
 
 /**
- * Find article by id
+ * Find goal by id
  */
 exports.goal = function(req, res, next, id) {
   Goal.load(id, function(err, goal) {
@@ -26,8 +26,21 @@ exports.destroy = function(req, res) {
   })
 };
 
+exports.myGoals = function(req, res) {
+  var goals = Goal.find({user: req.user});
+  
+  goals.populate('user', 'name username')
+    .exec(function (err, goals) {
+      if (err) return console.error(err);
+      console.log(goals);
+      res.send(goals);
+  });
+};
+
 exports.findAll = function(req, res) {
-  Goal.find(function (err, goals) {
+  var goals = Goal.find();
+  goals.populate('user', 'name username')
+    .exec(function (err, goals) {
       if (err) return console.error(err);
       console.log(goals);
       res.send(goals);
@@ -47,11 +60,12 @@ exports.create = function(req, res) {
   goal.user = req.user;
 
   goal.save(function(err, doc) {
-    //TODO Throw an error
+    //TODO: Throw a proper error
     if(err){console.log(err); return false;}
-    //if(!doc){console.warn('coudnt find this doc'); return false;}
-    
-    res.send(doc);
+    //populate the use name
+    doc.populate('user', 'name username', function(err, fullDoc){
+      res.send(fullDoc);
+    });
   });
 };
 

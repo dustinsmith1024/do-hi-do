@@ -65,6 +65,11 @@ angular.module('mean.goals').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'public/goals/views/goals.html',
         controller: 'GoalsCtrl'
       })
+      .state('my goals', {
+        url: '/goals/my',
+        templateUrl: 'public/goals/views/goals.html',
+        controller: 'MyGoalsCtrl'
+      })
       .state('goals.new', {
         url: '/new',
         templateUrl: 'public/goals/views/new_goal.html',

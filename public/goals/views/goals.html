@@ -5,7 +5,7 @@
     <dt ng-repeat-start="goal in goals">
       <a ui-sref="goals.detail({id: goal._id})">{{goal.action}} {{goal.number}} {{goal.unit}}</a>
     </dt>
-    <dd ng-repeat-end>{{goal.because}}</dd>
+    <dd ng-repeat-end>{{goal.user.username}}: {{goal.because}}</dd>
   </dl>
 
   <a ui-sref="goals.new" class="btn btn-primary">Setup new goal</a>

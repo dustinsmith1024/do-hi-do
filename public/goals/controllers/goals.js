@@ -16,6 +16,21 @@ angular.module('mean.goals')
   }]);
 
 angular.module('mean.goals')
+  .controller('MyGoalsCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.loaded=false;
+    $http({method: 'GET', url: '/goals/my'})
+      .success(function(data) {
+        console.log('Got my goals: ', data);
+        $scope.goals = data;
+        // used to delay loading of the detail view
+        $scope.loaded=true;
+      })
+      .error(function(data) {
+        console.log('Err loading goals:', data);
+      });
+  }]);
+
+angular.module('mean.goals')
   .controller('GoalCtrl', 
      ['$scope', '$stateParams', '$http', '$state', function($scope, $stateParams, $http, $state) {
     console.log('Looking up goal: ', $stateParams.id);
@@ -47,7 +62,7 @@ angular.module('mean.goals')
       console.log('Added goal progress.');
 
       var postData = {date: $scope.date, number: $scope.number};
-      $http.post('/goals/' + $scope.goal._id, postData)
+      $http.post('/goals/' + $scope.goal._id + 'progress', postData)
         .success(function(data) {
           console.log(data);
           // Could just return the 1 progress object but this works for now
@@ -96,6 +111,7 @@ angular.module('mean.goals')
         because: $scope.because,
         created: Date.now()
       };
+
       $http.post('/goals', postData)
         .success(function(data) {
           console.log(data);

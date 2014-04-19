@@ -14,10 +14,14 @@ var hasAuthorization = function(req, res, next) {
 
 module.exports = function(app) {
   app.get('/goals', goals.findAll);
+  app.get('/goals/my', goals.myGoals);
+  //Create new goals
   app.post('/goals', authorization.requiresLogin, goals.create);
+  //Get individual goal
   app.get('/goals/:id', authorization.requiresLogin, goals.findById);
   app.delete('/goals/:id', authorization.requiresLogin, goals.destroy);
-  app.post('/goals/:id', authorization.requiresLogin, hasAuthorization, goals.addProgress);
+  
+  app.post('/goals/:id/progress', authorization.requiresLogin, hasAuthorization, goals.addProgress);
   app.post('/goals/:id/progress/:progress_id', authorization.requiresLogin, hasAuthorization, goals.removeProgress);
 
   //TODO Setup app.param for goal id
