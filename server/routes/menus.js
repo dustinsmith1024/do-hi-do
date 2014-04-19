@@ -18,6 +18,10 @@ module.exports = function(app) {
             defaultMenu: defaultMenu
         });
 
-        res.jsonp(items);
+        res.json([
+            {link: 'goals', title: 'Goals'},
+            {link: 'my goals', title: 'My Goals'},
+            {link: 'goals.new', title: 'Add Goal'}
+            ]);
     });
 };
