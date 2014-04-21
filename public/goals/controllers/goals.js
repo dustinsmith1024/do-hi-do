@@ -62,7 +62,7 @@ angular.module('mean.goals')
       console.log('Added goal progress.');
 
       var postData = {date: $scope.date, number: $scope.number};
-      $http.post('/goals/' + $scope.goal._id + 'progress', postData)
+      $http.post('/goals/' + $scope.goal._id + '/progress', postData)
         .success(function(data) {
           console.log(data);
           // Could just return the 1 progress object but this works for now
@@ -90,11 +90,18 @@ angular.module('mean.goals')
           console.log('update failed!');
         });
     };
+
+    $scope.openPicker = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.opened = true;
+    };
   }]);
 
 angular.module('mean.goals')
   .controller('NewGoalCtrl', 
-     ['$scope', '$http', function($scope, $http) {
+     ['$scope', '$http', '$state', function($scope, $http, $state) {
     console.log('Setting up new goal');
 
     var now = new Date();
@@ -117,7 +124,7 @@ angular.module('mean.goals')
           console.log(data);
           // Could just return the 1 progress object but this works for now
           $scope.goals.push(data);
-          //redirect to goal
+          $state.go('goals.detail', {id: data._id});
         })
         .error(function(){
           console.log('add failed!');

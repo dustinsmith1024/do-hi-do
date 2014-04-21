@@ -1,4 +1,5 @@
-<section>
+<div class="row">
+<section class="col-sm-3">
   <h1>Goals</h1>
 
   <dl>
@@ -11,4 +12,4 @@
   <a ui-sref="goals.new" class="btn btn-primary">Setup new goal</a>
 </section>
 
-<section ng-if="loaded" ui-view></section>
+<section ng-if="loaded" class="col-sm-9" ui-view></section>

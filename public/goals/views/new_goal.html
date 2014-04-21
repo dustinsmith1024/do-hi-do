@@ -1,28 +1,43 @@
-<h1>Step1: Set your Goal</h1>
+<div class="row"
+  <div class="col-md-6">
+    <h1>Set your Goal</h1>
 
-<form ng-submit="addGoal($event)">
-  <legend>I want to </legend>
-  <label>action
-    <input ng-model="action" placeholder="Read..."/>
-  </label>
+    <form ng-submit="addGoal($event)">
+      <legend>I want to </legend>
+      <div class="row">
+      <div class="form-group col-md-4">
+        <label>action</label>
+        <input ng-model="action" placeholder="Read, Write, Walk" class="form-control" />
+      </div>
+      <div class="form-group col-xs-6 col-md-4">
+        <label>number</label>
+        <input ng-model="number" placeholder="10" class="form-control" />
+      </div>
+      <div class="form-group col-xs-6 col-md-4">
+        <label>units</label>
+        <input ng-model="unit" placeholder="books, blog, miles" class="form-control" />
+      </div>
+    </div>
 
-  <label>number
-    <input ng-model="number" placeholder="10" />
-  </label>
-
-  <label>units
-    <input ng-model="unit" placeholder="book" />
-  </label>
-
-  <legend>by</legend>
-
-  <label>date
-    <input ng-model="date" />
-  </label>
-
-  <label>because
-    <textarea ng-model="because" placeholder="Expand my knowledge."></textarea>
-  </label>
-
-  <input type="submit"/>
-</form>
+      <legend>by</legend>
+      <div class="row">
+        <div class="form-group col-xs-12">
+          <label>completion date</label>
+          <p class="input-group date-control">
+            <input type="text" class="form-control" ng-model="date" is-open="opened" min="goal.created" show-weeks="false" datepicker-popup="MM-dd-yyyy"></input>
+            <span class="input-group-btn">
+              <span class="btn btn-default" ng-click="openPicker($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </span>
+            </span>
+          </p>
+        </div>
+        <div class="form-group col-xs-12">
+          <label>because</label>
+          <textarea ng-model="because" class="form-control" placeholder="Relax more, Get fit, Expand my online presence"></textarea>
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary"/>
+    </form>
+  </div>
+</div>
