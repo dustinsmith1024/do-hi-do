@@ -12,4 +12,10 @@
   <a ui-sref="goals.new" class="btn btn-primary">Setup new goal</a>
 </section>
 
-<section ng-if="loaded" class="col-sm-9" ui-view></section>
+<section ng-if="loaded" class="col-sm-9" ui-view>
+  <div class="jumbotron">
+    <h1>Do Hi Do</h1>
+    <p>Welcome to Do Hi Do, an interactive goal tracking app.  Add your goals and cheer each on!</p>
+    <p><a class="btn btn-primary btn-lg" role="button" ui-sref="goals.new">Add a goal</a></p>
+  </div>
+</section>
