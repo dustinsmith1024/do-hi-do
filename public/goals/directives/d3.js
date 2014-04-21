@@ -2,7 +2,7 @@
 var d3 = d3 || {};
 
 angular.module('mean.goals')
-  .directive('lineChart', function(){
+  .directive('lineChart', [function(){
     function link(scope, el, attr){
       console.log(scope);
 
@@ -145,7 +145,7 @@ angular.module('mean.goals')
       restrict: 'E',
       scope: { goal: '=', data: '=', xmax: '=', ymax: '=' }
     };
-});
+}]);
 
 
 /* This was just a test to see if you could put a path inside of a directive
@@ -153,7 +153,7 @@ angular.module('mean.goals')
   the two directives.  We could move that to a service possibly.
 */
 angular.module('mean.goals')
-  .directive('goalLine', function(){
+  .directive('goalLine', [function(){
     function link(scope, el, attr){
       console.log(scope);
       //debugger;
@@ -197,10 +197,10 @@ angular.module('mean.goals')
       restrict: 'E',
       scope: { goal: '=', data: '=', xmax: '=', ymax: '=' }
     };
-});
+}]);
 
 angular.module('mean.goals')
-  .directive('donutChart', function(){
+  .directive('donutChart', [function(){
   function link(scope, el, attr){
     var color = d3.scale.category10();
     var data = scope.data;
@@ -230,4 +230,4 @@ angular.module('mean.goals')
     restrict: 'E',
     scope: { data: '=' }
   };
-});
+}]);
