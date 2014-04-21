@@ -63,12 +63,22 @@ angular.module('mean.goals').config(['$stateProvider', '$urlRouterProvider',
       .state('goals', {
         url: '/goals',
         templateUrl: 'public/goals/views/goals.html',
-        controller: 'GoalsCtrl'
+        controller: 'GoalsCtrl',
+        data: {goals: 'all'}
       })
       .state('my goals', {
         url: '/goals/my',
         templateUrl: 'public/goals/views/goals.html',
-        controller: 'MyGoalsCtrl'
+        controller: 'GoalsCtrl',
+        data: {goals: 'my'}
+      })
+      .state('my goals.new', {
+        url: '/new',
+        templateUrl: 'public/goals/views/new_goal.html',
+        controller: 'NewGoalCtrl',
+        resolve: {
+          loggedin: checkLoggedin
+        }
       })
       .state('goals.new', {
         url: '/new',
@@ -77,6 +87,11 @@ angular.module('mean.goals').config(['$stateProvider', '$urlRouterProvider',
         resolve: {
           loggedin: checkLoggedin
         }
+      })
+      .state('my goals.detail', {
+        url: '/:id',
+        templateUrl: 'public/goals/views/goal.html',
+        controller: 'GoalCtrl'
       })
       .state('goals.detail', {
         url: '/:id',
