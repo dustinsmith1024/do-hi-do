@@ -6,7 +6,7 @@ angular.module('mean.goals')
     function link(scope, el, attr){
       console.log(scope);
 
-      var margin = {top: 20, right: 20, bottom: 60, left: 30},
+      var margin = {top: 20, right: 20, bottom: 60, left: 50},
           width = 700 - margin.left - margin.right,
           height = 300 - margin.top - margin.bottom;
 
@@ -25,10 +25,15 @@ angular.module('mean.goals')
           .ticks(d3.time.weeks) //better way?
           .tickFormat(d3.time.format('%b %d'));
 
+      var yTicks = scope.goal.number;
+      if (scope.goal.number > 5) {
+        yTicks = 5
+      }
+
       var yAxis = d3.svg.axis()
           .scale(y)
           .orient('left')
-          .ticks(scope.goal.number)
+          .ticks(yTicks)
           .tickSubdivide(0);
 
       var line = d3.svg.line()
