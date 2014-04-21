@@ -4,7 +4,6 @@
   <p>Finish by: {{goal.date}}</p>
   <p>Because: {{goal.because}}</p>
 
-  <button class="btn btn-danger" ng-click="removeGoal()">Remove Goal</button>
 </div>
 <line-chart goal="goal" xmax="goal.date" ymax="goal.number" data="goal.progress"></line-chart>
 
@@ -49,5 +48,7 @@
         </tr>
       </tbody>
     </table>
+    <button type="button" class="btn btn-danger" ng-really-message="Are you sure, this will remove the goal and all progress?" ng-really-click="removeGoal()">Remove Goal</button>
+
   </div>
 </div>
