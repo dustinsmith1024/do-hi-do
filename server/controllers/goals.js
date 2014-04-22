@@ -26,24 +26,40 @@ exports.destroy = function(req, res) {
   })
 };
 
+/* Requires .lean to be used on mongoose model
+  Where should this live?
+*/
+function totalProgress(goals){
+  goals.forEach(function(value, key, arr){
+    var totalProgress = 0;
+    value.progress.forEach(function(v){
+      totalProgress += v.number;
+    });
+    value.total = totalProgress;
+    value.totalLeft = value.number - totalProgress;
+  });
+
+  return goals;
+}
+
 exports.myGoals = function(req, res) {
   var goals = Goal.find({user: req.user});
   
-  goals.populate('user', 'name username')
+  goals.lean().populate('user', 'name username')
     .exec(function (err, goals) {
       if (err) return console.error(err);
-      console.log(goals);
-      res.send(goals);
+      
+      res.send(totalProgress(goals));
   });
 };
 
 exports.findAll = function(req, res) {
   var goals = Goal.find();
-  goals.populate('user', 'name username')
+  goals.lean().populate('user', 'name username')
     .exec(function (err, goals) {
       if (err) return console.error(err);
-      console.log(goals);
-      res.send(goals);
+
+      res.send(totalProgress(goals));
   });
 };
 

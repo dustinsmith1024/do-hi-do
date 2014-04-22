@@ -4,6 +4,7 @@
 
   <dl>
     <dt ng-repeat-start="goal in goals">
+      <donut-chart size="25" data="[{value: goal.total}, {value: goal.totalLeft}]"></donut-chart>
       <a ui-sref=".detail({id: goal._id})">{{goal.action}} {{goal.number}} {{goal.unit}}</a>
     </dt>
     <dd ng-repeat-end>{{goal.user.username}}: {{goal.because}}</dd>
@@ -16,6 +17,6 @@
   <div class="jumbotron">
     <h1>Do Hi Do</h1>
     <p>Welcome to Do Hi Do, an interactive goal tracking app.  Add your goals and cheer each on!</p>
-    <p><a class="btn btn-primary btn-lg" role="button" ui-sref="goals.new">Add a goal</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" ui-sref=".new">Add a goal</a></p>
   </div>
 </section>

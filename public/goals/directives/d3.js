@@ -200,34 +200,41 @@ angular.module('mean.goals')
 }]);
 
 angular.module('mean.goals')
-  .directive('donutChart', [function(){
-  function link(scope, el, attr){
-    var color = d3.scale.category10();
-    var data = scope.data;
-    var width = 300;
-    var height = 300;
-    var min = Math.min(width, height);
-    var svg = d3.select(el[0]).append('svg');
-    var pie = d3.layout.pie().sort(null);
-    var arc = d3.svg.arc()
-      .outerRadius(min / 2 * 0.9)
-      .innerRadius(min / 2 * 0.5);
+    .directive('donutChart', [function(){
+      function link(scope, el, attr){
+        //var color = d3.scale.category10();
+        var color = ['steelblue', '#9BCD9B'];
+        var width = +scope.size;
+        var height = +scope.size;
+        var min = Math.min(width, height);
+        var svg = d3.select(el[0]).append('svg');
+        var pie = d3.layout.pie().sort(null);
+        var arc = d3.svg.arc()
+          .outerRadius(min / 2 * 0.9)
+          .innerRadius(min / 2 * 0.4);
 
-    svg.attr({width: width, height: height});
-    var g = svg.append('g')
-      // center the donut chart
-      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+        pie.value(function(d){ return d.value; });
     
-    // add the <path>s for each arc slice
-    g.selectAll('path').data(pie(data))
-      .enter().append('path')
-        .style('stroke', 'white')
-        .attr('d', arc)
-        .attr('fill', function(d, i){ return color(i); });
-  }
-  return {
-    link: link,
-    restrict: 'E',
-    scope: { data: '=' }
-  };
-}]);
+        svg.attr({width: width, height: height});
+        var g = svg.append('g')
+          // center the donut chart
+          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+        
+        // add the <path>s for each arc slice
+        var arcs = g.selectAll('path');
+
+        scope.$watch('data', function(data){
+          arcs = arcs.data(pie(data));
+          arcs.enter().append('path')
+            .style('stroke', 'white')
+            .attr('fill', function(d, i){ console.log('i:', i); return color[i] });
+          arcs.exit().remove();
+          arcs.attr('d', arc);
+        }, true);
+      }
+      return {
+        link: link,
+        restrict: 'E',
+        scope: { data: '=', size: '=' }
+      };
+    }]);

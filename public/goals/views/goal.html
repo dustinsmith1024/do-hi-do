@@ -1,10 +1,16 @@
-<h2>{{goal.action}} {{goal.number}} {{goal.unit}}</h2>
-<div>
-  <p>Created: {{goal.created}}</p>
-  <p>Finish by: {{goal.date}}</p>
-  <p>Because: {{goal.because}}</p>
-
+<div class="row">
+  <div class="col-sm-6">
+    <h2>{{goal.action}} {{goal.number}} {{goal.unit}}</h2>
+    <p>Created: {{goal.created}}</p>
+    <p>Finish by: {{goal.date}}</p>
+    <p>Because: {{goal.because}}</p>
+  </div>
+  <div class="col-sm-6">
+    <donut-chart size="170" data="[{value: goal.total}, {value: goal.totalLeft}]"></donut-chart>
+  </div>
 </div>
+
+<h2>Details</h2>
 <line-chart goal="goal" xmax="goal.date" ymax="goal.number" data="goal.progress"></line-chart>
 
 <div class="row">

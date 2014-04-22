@@ -23,8 +23,6 @@ angular.module('mean.goals')
       });
   }]);
 
-
-
 angular.module('mean.goals')
   .controller('GoalCtrl', 
      ['$scope', '$stateParams', '$http', '$state', function($scope, $stateParams, $http, $state) {

@@ -28,3 +28,8 @@
   width: 710px;
   height: 220px;
 }
+
+/* hack for now - should probably use a real grid to align it better*/
+donut-chart svg {
+  margin-bottom: -7px;
+}
