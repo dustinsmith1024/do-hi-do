@@ -2,11 +2,13 @@
 
 angular.module('mean.goals')
   .controller('GoalsCtrl', ['$scope', '$state', '$http', function ($scope, $state, $http) {
-    $scope.loaded=false;
+    $scope.loaded = false;
+    $scope.title = 'Goals';
     var url = '/goals';
 
     if($state.current.data.goals==='my'){
       url += '/my';
+      $scope.title = 'My Goals';
     }
 
     $http({method: 'GET', url: url, xsrfHeaderName: '_csrf'})
